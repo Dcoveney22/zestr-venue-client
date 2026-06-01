@@ -1,0 +1,11 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "npm install && npm run build -- --configuration production"
+  },
+  "deploy": {
+    "startCommand": "npx serve dist/zestr-venue-client/browser -l $PORT",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}
