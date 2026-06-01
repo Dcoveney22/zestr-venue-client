@@ -1,0 +1,5 @@
+[phases.build]
+cmds = ["npm install", "npm run build -- --configuration production"]
+
+[start]
+cmd = "npx serve dist/zestr-venue-client/browser -l $PORT"
