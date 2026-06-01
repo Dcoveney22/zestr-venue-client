@@ -1,0 +1,50 @@
+<section aria-labelledby="leaderboard-title">
+  <header class="section-header">
+    <div>
+      <h1 id="leaderboard-title">Sales Leaderboard</h1>
+      @if (uploadedWeek()) {
+        <p class="week-label">
+          Week commencing:
+          <time [attr.datetime]="uploadedWeek()">{{ uploadedWeek() | date:'d MMMM yyyy' }}</time>
+        </p>
+      }
+    </div>
+    <a routerLink="/upload" class="btn btn--secondary">Upload New Results</a>
+  </header>
+
+  @if (hasData()) {
+    <div class="table-wrapper" role="region" aria-label="Leaderboard rankings" tabindex="0">
+      <table class="leaderboard-table">
+        <caption class="visually-hidden">Sales staff ranked by total score</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="col-place">Place</th>
+            <th scope="col" class="col-name">Name</th>
+            <th scope="col" class="col-score">Total Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of entries(); track entry.staffId) {
+            <tr
+              [class.row--gold]="entry.place === 1"
+              [class.row--silver]="entry.place === 2"
+              [class.row--bronze]="entry.place === 3"
+            >
+              <td class="col-place" [attr.aria-label]="placeLabel(entry.place)">
+                <span class="place-badge" aria-hidden="true">{{ placeLabel(entry.place) }}</span>
+              </td>
+              <td class="col-name">{{ entry.fullName }}</td>
+              <td class="col-score">{{ entry.totalScore }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="empty-state" role="status">
+      <p class="empty-state__message">No leaderboard data yet.</p>
+      <p class="empty-state__hint">Upload a sales CSV file to generate the leaderboard.</p>
+      <a routerLink="/upload" class="btn btn--primary">Upload Sales CSV</a>
+    </div>
+  }
+</section>

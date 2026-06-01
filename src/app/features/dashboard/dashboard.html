@@ -1,0 +1,174 @@
+<div class="dashboard">
+  <h1 class="dashboard__title">Dashboard</h1>
+
+  <div class="dashboard__grid">
+
+    <!-- Staff Members -->
+    <section class="card" aria-labelledby="staff-heading">
+      <h2 id="staff-heading" class="card__title">
+        Staff Members
+        @if (!staffLoading() && !staffError()) {
+          <span class="card__count">{{ staff().length }}</span>
+        }
+      </h2>
+
+      @if (staffLoading()) {
+        <p class="state-msg" aria-live="polite">Loading staff&hellip;</p>
+      } @else if (staffError()) {
+        <p class="state-msg state-msg--error" role="alert">{{ staffError() }}</p>
+      } @else if (staff().length === 0) {
+        <p class="state-msg">No staff members found.</p>
+      } @else {
+        <div class="table-wrap">
+          <table class="data-table" aria-label="Staff members">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Department</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (member of sortedStaff(); track member.id) {
+                <tr>
+                  <td>{{ member.firstName }} {{ member.lastName }}</td>
+                  <td class="data-table__dept">{{ member.department }}</td>
+                  <td class="data-table__dept">{{ member.personnelType }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [class.badge--active]="member.isActive"
+                      [class.badge--inactive]="!member.isActive"
+                    >{{ member.isActive ? 'Active' : 'Inactive' }}</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+    <!-- Menu Items -->
+    <section class="card" aria-labelledby="menu-heading">
+      <h2 id="menu-heading" class="card__title">
+        Menu Items
+        @if (!menuLoading() && !menuError()) {
+          <span class="card__count">{{ menuItems().length }}</span>
+        }
+      </h2>
+
+      @if (menuLoading()) {
+        <p class="state-msg" aria-live="polite">Loading menu items&hellip;</p>
+      } @else if (menuError()) {
+        <p class="state-msg state-msg--error" role="alert">{{ menuError() }}</p>
+      } @else if (menuItems().length === 0) {
+        <p class="state-msg">No menu items found.</p>
+      } @else {
+        <div class="table-wrap">
+          <table class="data-table" aria-label="Menu items">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Department</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of sortedMenuItems(); track item.id) {
+                <tr>
+                  <td>{{ item.name }}</td>
+                  <td class="data-table__dept">{{ item.department }}</td>
+                  <td class="data-table__num">{{ item.price | currency:'GBP' }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [class.badge--active]="item.isActive"
+                      [class.badge--inactive]="!item.isActive"
+                    >{{ item.isActive ? 'Active' : 'Inactive' }}</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+  </div>
+
+  <!-- Weekly Specials -->
+  <section class="card card--full" aria-labelledby="specials-heading">
+    <div class="card__header">
+      <h2 id="specials-heading" class="card__title">
+        Weekly Specials
+        @if (selectedWeek() && !specialsLoading() && !specialsError()) {
+          <span class="card__count">{{ specials().length }}</span>
+        }
+      </h2>
+      <div class="week-filter">
+        <label for="week-picker" class="week-filter__label">Week commencing</label>
+        <input
+          type="date"
+          id="week-picker"
+          class="week-filter__input"
+          [value]="selectedWeek()"
+          (change)="onWeekChange($event)"
+        />
+      </div>
+    </div>
+
+    @if (!selectedWeek()) {
+      <p class="state-msg">Select a week above to view specials.</p>
+    } @else if (specialsLoading()) {
+      <p class="state-msg" aria-live="polite">Loading specials&hellip;</p>
+    } @else if (specialsError()) {
+      <p class="state-msg state-msg--error" role="alert">{{ specialsError() }}</p>
+    } @else if (specials().length === 0) {
+      <p class="state-msg">No specials found for this week.</p>
+    } @else {
+      <div class="table-wrap">
+        <table class="data-table" aria-label="Weekly specials">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Department</th>
+              <th scope="col">Price</th>
+              <th scope="col">Level</th>
+              <th scope="col">Active</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (special of enrichedSpecials(); track special.id) {
+              <tr>
+                <td>{{ special.menuItem?.name ?? special.menuItemId }}</td>
+                <td class="data-table__dept">{{ special.menuItem?.department ?? '—' }}</td>
+                <td class="data-table__num">
+                  @if (special.menuItem) {
+                    {{ special.menuItem.price | currency:'GBP' }}
+                  } @else {
+                    —
+                  }
+                </td>
+                <td>
+                  <span class="level-badge level-badge--{{ special.specialLevel.toLowerCase() }}">
+                    {{ special.specialLevel }}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="badge"
+                    [class.badge--active]="special.isActive"
+                    [class.badge--inactive]="!special.isActive"
+                  >{{ special.isActive ? 'Yes' : 'No' }}</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+</div>

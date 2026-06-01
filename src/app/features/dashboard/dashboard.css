@@ -1,0 +1,224 @@
+.dashboard__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  .dashboard__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.card__header .card__title {
+  margin-bottom: 0;
+}
+
+/* Week filter */
+
+.week-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.week-filter__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.week-filter__input {
+  padding: 0.375rem 0.625rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: var(--color-background);
+  font-family: inherit;
+}
+
+.week-filter__input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+/* State messages */
+
+.state-msg {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  padding: 0.75rem 0;
+}
+
+.state-msg--error {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+}
+
+/* Table */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.data-table th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-background);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 0.625rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tbody tr:hover {
+  background: var(--color-background);
+}
+
+.data-table__mono {
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.data-table__dept {
+  color: var(--color-text-secondary);
+  font-size: 0.825rem;
+}
+
+.data-table__num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* Badges */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge--active {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badge--inactive {
+  background: #f3f4f6;
+  color: var(--color-text-secondary);
+}
+
+/* Level badges */
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.level-badge--gold {
+  background: #fef3c7;
+  color: var(--color-gold);
+}
+
+.level-badge--silver {
+  background: #f3f4f6;
+  color: var(--color-silver);
+}
+
+.level-badge--bronze {
+  background: #fde8d0;
+  color: var(--color-bronze);
+}
+
+.level-badge--featured {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.level-badge--standard {
+  background: #f3f4f6;
+  color: var(--color-text-secondary);
+}
