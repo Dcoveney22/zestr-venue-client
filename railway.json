@@ -5,7 +5,7 @@
     "buildCommand": "npm install && npm run build -- --configuration production"
   },
   "deploy": {
-    "startCommand": "npx serve dist/zestr-venue-client/browser -l $PORT",
+    "startCommand": "npx serve dist/zestr-venue-client/browser -l $PORT --single",
     "restartPolicyType": "ON_FAILURE"
   }
 }
